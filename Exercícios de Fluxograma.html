@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exercícios de Fluxograma</title>
+<style>
+:root{--bg:#f7f8fa;--fg:#1d2433;--mut:#5d667a;--card:#fff;--bd:#d9dde6;--ac:#2f6fed;--box:#eef3ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--fg:#e6e9f0;--mut:#9aa3b8;--card:#1b202b;--bd:#2c3342;--ac:#6b9bff;--box:#222b40}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:900px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.6rem;margin:.2em 0}
+p.s{color:var(--mut);margin:0 0 20px}
+.lv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.lv button{background:var(--card);color:var(--fg);border:2px solid var(--bd);border-radius:12px;padding:14px;text-align:left;cursor:pointer;font:inherit}
+.lv button.on{border-color:var(--ac)}
+.lv b{display:block;font-size:1.1rem}.lv span{color:var(--mut);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
+ol{padding-left:22px;margin:0}li{margin:8px 0}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer;margin:6px 8px 6px 0}
+.btn.g{background:transparent;color:var(--ac);border:2px solid var(--ac)}
+.hint{color:var(--mut);font-size:.92rem}
+.fc{overflow-x:auto;text-align:center}
+svg text{fill:var(--fg);font:12px system-ui,sans-serif;text-anchor:middle}
+svg .lb{text-anchor:start;font-size:11px;fill:var(--ac);font-weight:700}
+svg path,svg rect{fill:var(--box);stroke:var(--fg);stroke-width:1.5}
+svg path.l{fill:none}
+h3{margin:0 0 4px;font-size:1rem}
+.io{color:var(--mut);font-size:.88rem;margin-top:4px}
+@media print{.no{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--fg);stroke:none"/></marker></defs></svg>
+<main>
+<h1>Exercícios de Fluxograma</h1>
+<p class="s">Níveis Iniciante, Médio e Difícil, com 30 exercícios cada. Escolhe um nível, resolve os 10 exercícios no caderno e depois confere os fluxogramas.</p>
+<div class="lv" id="lv"></div>
+<div id="out"></div>
+</main>
+<script>
+const RAW=[
+["Nível 1","Sequencial (sem decisões)",`Ler dois números e mostrar a soma.|r a,b;c s=a+b;p s
+Ler dois números e mostrar o produto.|r a,b;c m=a*b;p m
+Ler dois números e mostrar a diferença.|r a,b;c d=a-b;p d
+Ler dois números e mostrar o quociente.|r a,b;c q=a/b;p q
+Calcular a área de um retângulo (base e altura).|r b,h;c A=b*h;p A
+Calcular a área de um quadrado a partir do lado.|r l;c A=l*l;p A
+Calcular a área de um triângulo (base e altura).|r b,h;c A=b*h/2;p A
+Calcular o perímetro de um quadrado.|r l;c P=4*l;p P
+Calcular a área de um círculo (raio).|r r;c A=3.14*r*r;p A
+Calcular o perímetro de uma circunferência.|r r;c P=2*3.14*r;p P
+Ler três notas e calcular a média.|r n1,n2,n3;c m=(n1+n2+n3)/3;p m
+Converter graus Celsius em Fahrenheit.|r C;c F=C*9/5+32;p F
+Converter Fahrenheit em Celsius.|r F;c C=(F-32)*5/9;p C
+Converter quilómetros em metros.|r km;c m=km*1000;p m
+Converter horas em minutos.|r h;c m=h*60;p m
+Converter minutos em segundos.|r m;c s=m*60;p s
+Calcular o dobro de um número.|r n;c d=2*n;p d
+Calcular o quadrado de um número.|r n;c q=n*n;p q
+Calcular o cubo de um número.|r n;c k=n*n*n;p k
+Calcular o salário com aumento de 10%.|r s;c n=s*1.1;p n
+Calcular o preço com desconto de 20%.|r p;c f=p*0.8;p f
+Calcular o IVA (14%) de um produto.|r p;c iva=p*0.14;p iva
+Calcular o total de n produtos com preço unitário p.|r n,p;c t=n*p;p t
+Ler dois números e trocar os seus valores.|r a,b;c t=a;c a=b;c b=t;p a,b
+Calcular a média de dois números.|r a,b;c m=(a+b)/2;p m
+Calcular a hipotenusa (Pitágoras).|r a,b;c h=sqrt(a*a+b*b);p h
+Calcular o volume de um cubo.|r l;c V=l*l*l;p V
+Calcular o volume de um paralelepípedo.|r a,b,c;c V=a*b*c;p V
+Calcular a idade a partir do ano de nascimento.|r an;c i=2026-an;p i
+Calcular o troco de uma compra.|r pago,preco;c t=pago-preco;p t`],
+["Nível 2","Decisões (se / senão)",`Ler um número e dizer se é positivo ou negativo.|r n;? n>=0 {p "Positivo"}{p "Negativo"}
+Ler um número e dizer se é par ou ímpar.|r n;? n%2==0 {p "Par"}{p "Ímpar"}
+Ler dois números e mostrar o maior.|r a,b;? a>b {p a}{p b}
+Ler dois números e mostrar o menor.|r a,b;? a<b {p a}{p b}
+Ler a idade e dizer se é maior de idade.|r i;? i>=18 {p "Maior"}{p "Menor"}
+Ler a nota e dizer se aprova (nota ≥ 10).|r n;? n>=10 {p "Aprovado"}{p "Reprovado"}
+Ler dois números e dizer se são iguais.|r a,b;? a==b {p "Iguais"}{p "Diferentes"}
+Ler um número e dizer se é múltiplo de 5.|r n;? n%5==0 {p "Múltiplo"}{p "Não é"}
+Ler um número e dizer se é divisível por 3.|r n;? n%3==0 {p "Sim"}{p "Não"}
+Ler a temperatura e dizer se há febre (> 37.5).|r t;? t>37.5 {p "Febre"}{p "Normal"}
+Ler três números e mostrar o maior.|r a,b,c;? a>b {? a>c {p a}{p c}}{? b>c {p b}{p c}}
+Ler três números e mostrar o menor.|r a,b,c;? a<b {? a<c {p a}{p c}}{? b<c {p b}{p c}}
+Ler um ano e dizer se é bissexto (divisível por 4).|r a;? a%4==0 {p "Bissexto"}{p "Normal"}
+Ler a idade: criança (< 12), adolescente (< 18) ou adulto.|r i;? i<12 {p "Criança"}{? i<18 {p "Adolescente"}{p "Adulto"}}
+Ler a média: Reprovado (< 7), Recurso (< 10) ou Aprovado.|r m;? m<7 {p "Reprovado"}{? m<10 {p "Recurso"}{p "Aprovado"}}
+Dar aumento de 10% se o salário for menor que 50000.|r s;? s<50000 {c s=s*1.1}{p "Sem aumento"};p s
+Dar 10% de desconto se a compra for maior que 1000.|r v;? v>1000 {c v=v*0.9}{p "Sem desconto"};p v
+Ler um número e mostrar o seu valor absoluto.|r n;? n<0 {c n=-n}{p "Já é positivo"};p n
+Ler um número e ver se está entre 1 e 100.|r n;? n>=1 {? n<=100 {p "Dentro"}{p "Fora"}}{p "Fora"}
+Ler duas notas e dizer se aprova (média ≥ 10).|r a,b;c m=(a+b)/2;? m>=10 {p "Aprovado"}{p "Reprovado"}
+Ler a velocidade e dizer se há multa (> 60 km/h).|r v;? v>60 {p "Multa"}{p "Sem multa"}
+Dizer se um número é positivo, negativo ou zero.|r n;? n>0 {p "Positivo"}{? n<0 {p "Negativo"}{p "Zero"}}
+Ler um carácter e dizer se é a letra "a".|r x;? x=="a" {p "É a"}{p "Não é a"}
+Ler o sexo (M/F) e escrever a mensagem.|r s;? s=="M" {p "Masculino"}{p "Feminino"}
+Ler três lados e dizer se formam um triângulo.|r a,b,c;? a<b+c {? b<a+c {? c<a+b {p "Forma"}{p "Não"}}{p "Não"}}{p "Não"}
+Ler três lados e dizer se o triângulo é equilátero.|r a,b,c;? a==b {? b==c {p "Equilátero"}{p "Outro"}}{p "Outro"}
+Ler a, b, c e ver se a equação tem raízes reais.|r a,b,c;c d=b*b-4*a*c;? d>=0 {p "Tem raízes"}{p "Sem raízes"}
+Ler saldo e levantamento; autorizar se houver saldo.|r s,v;? v<=s {c s=s-v;p s}{p "Saldo insuficiente"}
+Ler a hora e dizer Bom dia (< 12) ou Boa tarde.|r h;? h<12 {p "Bom dia"}{p "Boa tarde"}
+Dizer se o 1.º número é divisível pelo 2.º.|r a,b;? a%b==0 {p "Divisível"}{p "Não divisível"}`],
+["Nível 3","Repetição (ciclos)",`Mostrar os números de 1 a 10.|f i=1,10 {p i}
+Mostrar os números de 10 a 1.|c i=10;w i>=1 {p i;c i=i-1}
+Mostrar os números pares de 1 a 50.|f i=1,50 {? i%2==0 {p i}{}}
+Calcular a soma dos números de 1 a n.|r n;c s=0;f i=1,n {c s=s+i};p s
+Calcular o fatorial de n.|r n;c f=1;f i=1,n {c f=f*i};p f
+Mostrar a tabuada de um número.|r n;f i=1,10 {c t=n*i;p t}
+Calcular a média de 5 números lidos.|c s=0;f i=1,5 {r x;c s=s+x};c m=s/5;p m
+Contar os números pares entre 1 e n.|r n;c c=0;f i=1,n {? i%2==0 {c c=c+1}{}};p c
+Somar números lidos até ler 0.|c s=0;r x;w x!=0 {c s=s+x;r x};p s
+Ler números até um negativo e contar quantos foram lidos.|c c=0;r x;w x>=0 {c c=c+1;r x};p c
+Calcular a^b usando um ciclo.|r a,b;c p=1;f i=1,b {c p=p*a};p p
+Mostrar os 10 primeiros múltiplos de 3.|f i=1,10 {c m=3*i;p m}
+Calcular a soma dos pares de 1 a n.|r n;c s=0;f i=1,n {? i%2==0 {c s=s+i}{}};p s
+Mostrar os números ímpares de 1 a 20.|f i=1,20 {? i%2==1 {p i}{}}
+Ler 10 números e mostrar o maior.|r x;c m=x;f i=2,10 {r x;? x>m {c m=x}{}};p m
+Ler 10 números e mostrar o menor.|r x;c m=x;f i=2,10 {r x;? x<m {c m=x}{}};p m
+Ler 10 notas e contar quantas são ≥ 10.|c c=0;f i=1,10 {r n;? n>=10 {c c=c+1}{}};p c
+Ler 20 idades e contar os maiores de idade.|c c=0;f i=1,20 {r id;? id>=18 {c c=c+1}{}};p c
+Mostrar os n primeiros termos 2, 4, 8, 16...|r n;c x=1;f i=1,n {c x=x*2;p x}
+Calcular a soma dos dígitos de um número.|r n;c s=0;w n>0 {c s=s+n%10;c n=int(n/10)};p s
+Contar os dígitos de um número.|r n;c c=0;w n>0 {c c=c+1;c n=int(n/10)};p c
+Inverter um número.|r n;c r=0;w n>0 {c r=r*10+n%10;c n=int(n/10)};p r
+Verificar se um número é primo.|r n;c d=2;c p=1;w d<n {? n%d==0 {c p=0}{};c d=d+1};? p==1 {p "Primo"}{p "Não primo"}
+Mostrar os n primeiros termos de Fibonacci.|r n;c a=0;c b=1;f i=1,n {p a;c t=a+b;c a=b;c b=t}
+Calcular o MDC de dois números.|r a,b;w b!=0 {c t=a%b;c a=b;c b=t};p a
+Calcular a soma de n números lidos.|r n;c s=0;f i=1,n {r x;c s=s+x};p s
+Calcular a média de n notas.|r n;c s=0;f i=1,n {r x;c s=s+x};c m=s/n;p m
+Pedir um número até ser não negativo.|r n;w n<0 {p "Inválido";r n};p n
+Mostrar os divisores de n.|r n;f i=1,n {? n%i==0 {p i}{}}
+Calcular 1/1 + 1/2 + ... + 1/n.|r n;c s=0;f i=1,n {c s=s+1/i};p s`]];
+const HARD=`Crie um fluxograma que leia o número n de alunos e, para cada aluno, a sua nota (0 a 20). O fluxograma deve contar os aprovados (nota ≥ 10) e reprovados, calcular a média da turma e mostrar os três resultados.|r n;c ap=0;c rp=0;c s=0;f i=1,n {r nt;c s=s+nt;? nt>=10 {c ap=ap+1}{c rp=rp+1}};c m=s/n;p ap,rp,m
+Crie um fluxograma que leia números inteiros até o utilizador digitar 0 (o 0 não conta). No final, mostre o maior número, o menor número e a quantidade de números lidos.|r x;c mx=x;c mn=x;c q=0;w x!=0 {c q=q+1;? x>mx {c mx=x}{};? x<mn {c mn=x}{};r x};p mx,mn,q
+Crie um fluxograma com ciclos aninhados que mostre todas as tabuadas, de 1 a 10. Para cada número i de 1 a 10, mostre os produtos i × j com j de 1 a 10.|f i=1,10 {f j=1,10 {c t=i*j;p t}}
+Crie um fluxograma que leia a altura n e desenhe um triângulo de asteriscos: a linha i tem i asteriscos. Use um ciclo para as linhas e outro, dentro dele, para os asteriscos.|r n;f i=1,n {f j=1,i {p "*"};p "nova linha"}
+Crie um fluxograma que leia n e verifique se é um número perfeito (igual à soma dos seus divisores próprios, ex.: 6 = 1+2+3). Mostre a mensagem correspondente.|r n;c s=0;f i=1,n-1 {? n%i==0 {c s=s+i}{}};? s==n {p "Perfeito"}{p "Não perfeito"}
+Crie um fluxograma que leia n e mostre todos os números primos entre 2 e n. Para cada candidato k, teste se algum divisor d entre 2 e k-1 o divide.|r n;f k=2,n {c p=1;c d=2;w d<k {? k%d==0 {c p=0}{};c d=d+1};? p==1 {p k}{}}
+Crie um fluxograma que leia um número de 3 dígitos, separe os dígitos com % e divisão inteira e verifique se é de Armstrong (soma dos cubos dos dígitos igual ao número, ex.: 153).|r n;c t=n;c s=0;w t>0 {c d=t%10;c s=s+d*d*d;c t=int(t/10)};? s==n {p "Armstrong"}{p "Não é"}
+Crie um fluxograma que leia um número inteiro e verifique se é uma capicua (igual ao seu inverso, ex.: 12321). Guarde o original, inverta o número com um ciclo e compare.|r n;c t=n;c r=0;w t>0 {c r=r*10+t%10;c t=int(t/10)};? r==n {p "Capicua"}{p "Não é capicua"}
+Crie um fluxograma que converta um número decimal n em binário usando divisões sucessivas por 2, construindo o resultado dígito a dígito (b), e mostre o binário final.|r n;c b=0;c pos=1;w n>0 {c b=b+(n%2)*pos;c pos=pos*10;c n=int(n/2)};p b
+Crie um fluxograma que leia n e mostre o fatorial de cada número de 1 até n. Use um ciclo externo para i e um ciclo interno que calcule i!.|r n;f i=1,n {c f=1;f j=1,i {c f=f*j};p f}
+Crie um fluxograma que calcule a soma S = 1 + 1/2! + 1/3! + ... + 1/n! para um n lido, atualizando o fatorial e a soma no mesmo ciclo.|r n;c s=0;c f=1;f i=1,n {c f=f*i;c s=s+1/f};p s
+Crie um fluxograma de caixa automático: leia o saldo e peça o PIN (correto: 1234) com no máximo 3 tentativas. Se bloquear, mostre "Cartão bloqueado". Se acertar, leia o valor a levantar e autorize só se houver saldo.|r s;c t=1;r p;w p!=1234 {c t=t+1;? t>3 {p "Cartão bloqueado";c p=1234}{r p}};? t<=3 {r v;? v<=s {c s=s-v;p s}{p "Saldo insuficiente"}}{p "Fim"}
+Crie um fluxograma que leia o número n de funcionários e o salário de cada um. Desconto de IRT: até 100000 = 0%; até 200000 = 10%; até 500000 = 15%; acima = 20%. Some 3% de segurança social e mostre o salário líquido de cada funcionário.|r n;f i=1,n {r s;? s<=100000 {c d=0}{? s<=200000 {c d=0.1}{? s<=500000 {c d=0.15}{c d=0.2}}};c l=s-s*d-s*0.03;p l}
+Crie um fluxograma do jogo "adivinha o número": leia o número secreto e depois os palpites do jogador. Enquanto errar, diga se o secreto é "Maior" ou "Menor" e conte as tentativas. No fim, mostre o total de tentativas.|r seg;c t=1;r x;w x!=seg {? x<seg {p "Maior"}{p "Menor"};c t=t+1;r x};p t
+Crie um fluxograma que leia n números e mostre o maior (a) e o segundo maior (b). Ao ler cada novo número, atualize a e b corretamente.|r n;r x;c a=x;c b=-9999;f i=2,n {r x;? x>a {c b=a;c a=x}{? x>b {c b=x}{}}};p a,b
+Crie um fluxograma que leia números até aparecer 0, ignorando os negativos. Calcule a média só dos positivos; se não houver nenhum positivo, mostre "Sem positivos".|c s=0;c q=0;r x;w x!=0 {? x>0 {c s=s+x;c q=q+1}{};r x};? q>0 {c m=s/q;p m}{p "Sem positivos"}
+Crie um fluxograma que leia um valor em Kz e calcule quantas notas de 1000, 500 e 100 são precisas (usando o menor número de notas) e quanto sobra em moedas.|r v;c n1=int(v/1000);c v=v%1000;c n2=int(v/500);c v=v%500;c n3=int(v/100);c v=v%100;p n1,n2,n3,v
+Crie um fluxograma que leia dois números a e b e calcule o MMC. Primeiro obtenha o MDC pelo algoritmo de Euclides (ciclo de restos) e depois use MMC = a×b / MDC.|r a,b;c x=a;c y=b;w y!=0 {c t=x%y;c x=y;c y=t};c m=a*b/x;p m
+Crie um fluxograma da sequência de Collatz: partindo de n, se for par divida por 2, senão calcule 3n+1, repetindo até chegar a 1. Mostre cada valor e, no fim, o número de passos.|r n;c q=0;w n!=1 {? n%2==0 {c n=n/2}{c n=3*n+1};c q=q+1;p n};p q
+Crie um fluxograma que calcule a raiz digital de n: some os dígitos repetidamente até restar um único dígito (ex.: 987 → 24 → 6). Use dois ciclos, um dentro do outro.|r n;w n>9 {c s=0;w n>0 {c s=s+n%10;c n=int(n/10)};c n=s};p n
+Crie um fluxograma que leia n e desenhe uma pirâmide invertida de números: a primeira linha vai de 1 até n, a segunda de 1 até n-1, e assim por diante até 1.|r n;f i=1,n {c k=n-i+1;f j=1,k {p j};p "nova linha"}
+Crie um fluxograma de facturação: leia o número n de produtos e, para cada um, o preço e a quantidade. Se o subtotal passar 50000 Kz, aplique 10% de desconto. Depois some 14% de IVA e mostre o total a pagar.|r n;c t=0;f i=1,n {r pr,q;c t=t+pr*q};? t>50000 {c t=t*0.9}{};c t=t*1.14;p t
+Crie um fluxograma que resolva uma equação do 2.º grau: leia a, b, c; se a for 0, avise que não é do 2.º grau; senão calcule delta e mostre 0, 1 ou 2 raízes reais conforme o seu sinal.|r a,b,c;? a==0 {p "Não é do 2.º grau"}{c d=b*b-4*a*c;? d<0 {p "Sem raízes reais"}{? d==0 {c x=-b/(2*a);p x}{c x1=(-b+sqrt(d))/(2*a);c x2=(-b-sqrt(d))/(2*a);p x1,x2}}}
+Crie um fluxograma de estatística: leia n idades e conte quantas pessoas são crianças (< 12), adolescentes (< 18), adultos (< 60) e idosos (≥ 60). Mostre as quatro contagens.|c a=0;c b=0;c c=0;c d=0;r n;f i=1,n {r id;? id<12 {c a=a+1}{? id<18 {c b=b+1}{? id<60 {c c=c+1}{c d=d+1}}}};p a,b,c,d
+Crie um fluxograma de uma calculadora que repete: leia a operação (+, -, *, /) e dois números, mostre o resultado (avisando divisão por zero) e volte a pedir a operação até o utilizador digitar "S".|r op;w op!="S" {r a,b;? op=="+" {c r=a+b}{? op=="-" {c r=a-b}{? op=="*" {c r=a*b}{? b==0 {c r=0;p "Divisão por zero"}{c r=a/b}}}};p r;r op}
+Crie um fluxograma de juros compostos: leia o capital c0, a taxa mensal t (%) e o número de meses n. Mostre o montante de cada mês e indique o primeiro mês em que o montante ultrapassa o dobro do capital.|r c0,t,n;c m=c0;c dm=0;f i=1,n {c m=m*(1+t/100);p m;? m>=2*c0 {? dm==0 {c dm=i}{}}{}};p dm
+Crie um fluxograma que leia dois limites a e b e, no intervalo [a, b], conte e some os números divisíveis ao mesmo tempo por 3 e por 5. Mostre a quantidade e a soma.|r a,b;c q=0;c s=0;f i=a,b {? i%3==0 {? i%5==0 {c q=q+1;c s=s+i}{}}{}};p q,s
+Crie um fluxograma que aproxime π pela série 4 × (1 - 1/3 + 1/5 - 1/7 + ...) com n termos. Alterne o sinal em cada termo e mostre o valor aproximado de π.|r n;c s=0;c sg=1;f i=1,n {c s=s+sg/(2*i-1);c sg=-sg};c pi=4*s;p pi
+Crie um fluxograma de uma eleição: leia o número n de eleitores e o voto de cada um (1, 2, 3 ou 0 = branco). Conte os votos e mostre o candidato vencedor.|c a=0;c b=0;c c=0;c z=0;r n;f i=1,n {r v;? v==1 {c a=a+1}{? v==2 {c b=b+1}{? v==3 {c c=c+1}{c z=z+1}}}};? a>b {? a>c {p "Candidato 1"}{p "Candidato 3"}}{? b>c {p "Candidato 2"}{p "Candidato 3"}}
+Crie um fluxograma que leia três números e os mostre por ordem crescente, usando só trocas entre variáveis (com variável auxiliar t), sem usar vetores.|r a,b,c;? a>b {c t=a;c a=b;c b=t}{};? b>c {c t=b;c b=c;c c=t}{};? a>b {c t=a;c a=b;c b=t}{};p a,b,c`;
+const P=i=>RAW[i][2].split("\n").map(l=>l.split("|")),A=P(0),B=P(1),C=P(2),H=HARD.split("\n").map(l=>l.split("|"));
+const LV=[{n:"Iniciante",s:"Cálculos e decisões simples",ex:[...A.slice(0,20),...B.slice(0,10)]},{n:"Médio",s:"Decisões encadeadas e ciclos",ex:[...B.slice(14),...C.slice(8,22)]},{n:"Difícil",s:"Problemas complexos: ciclos aninhados, algoritmos e simulações",ex:H}];
+const en=e=>/^Crie/.test(e[0])?e[0]:"Crie um fluxograma que resolva o problema: "+e[0];
+function io(c){const g=re=>{let o=[];for(const m of c.matchAll(re))m[2].split(",").forEach(v=>{v=v.trim();if(v&&!o.includes(v))o.push(v)});return o},i=g(/(^|[;{}])\s*r\s+([^;{}]+)/g),s=g(/(^|[;{}])\s*p\s+([^;{}]+)/g);return`<div class="io"><b>Entradas:</b> ${esc(i.join(", ")||"nenhuma")} &nbsp;|&nbsp; <b>Saídas / mensagens:</b> ${esc(s.join(", "))}</div>`}
+
+/* ---- Fluxograma ---- */
+const G=26,esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const T=(x,y,s)=>`<text x="${x}" y="${y+4}">${esc(s)}</text>`;
+const L=(d,a)=>`<path class="l" d="${d}"${a?' marker-end="url(#ar)"':''}/>`;
+function bl(t){let r=[],d=0,st=0;for(let i=0;i<t.length;i++){if(t[i]=='{'){if(d++==0)st=i+1}else if(t[i]=='}'&&--d==0)r.push(t.slice(st,i))}return r}
+function parse(s){let o=[],i=0;while(i<s.length){let j=i,d=0;while(j<s.length&&!(s[j]==';'&&d==0)){if(s[j]=='{')d++;if(s[j]=='}')d--;j++}const t=s.slice(i,j).trim();i=j+1;if(t)o.push(...[].concat(stmt(t)))}return o}
+function stmt(t){const k=t[0],b=bl(t),h=t.slice(1,t.indexOf('{')).trim();
+ if(k=='?')return{k,t:h,a:parse(b[0]),b:parse(b[1]||'')};
+ if(k=='w')return{k,t:h,a:parse(b[0])};
+ if(k=='f'){const[v,r]=h.split('='),[x,y]=r.split(',');return[{k:'c',t:`${v}=${x}`},{k:'w',t:`${v}<=${y}`,a:[...parse(b[0]),{k:'c',t:`${v}=${v}+1`}]}]}
+ return{k,t:t.slice(1).trim()}}
+function lay(n){
+ if(n.k=='?')return iff(n);if(n.k=='w')return wh(n);
+ const txt=n.k=='r'?'Ler '+n.t:n.k=='p'?'Escrever '+n.t:n.k=='c'?n.t.replace('=','←'):n.t;
+ const w=Math.max(110,txt.length*6.6+34),h=n.k=='s'||n.k=='e'?36:40,pj=n.k=='r'||n.k=='p';
+ return{w:w+(pj?24:0),h,d:(x,y)=>{let s;
+  if(n.k=='c')s=`<rect x="${x-w/2}" y="${y}" width="${w}" height="${h}"/>`;
+  else if(pj)s=`<path d="M${x-w/2+12} ${y}H${x+w/2+12}L${x+w/2-12} ${y+h}H${x-w/2-12}Z"/>`;
+  else s=`<rect rx="18" x="${x-w/2}" y="${y}" width="${w}" height="${h}"/>`;
+  return s+T(x,y+h/2,txt)}}}
+function seq(a){const it=a.map(lay),w=Math.max(40,...it.map(i=>i.w));let h=0;it.forEach((i,k)=>h+=i.h+(k?G:0));
+ return{w,h,d:(x,y)=>{let s='',c=y;it.forEach((i,k)=>{if(k){s+=L(`M${x} ${c}V${c+G}`,1);c+=G}s+=i.d(x,c);c+=i.h});return s}}}
+function dia(x,y,dw,t){return`<path d="M${x} ${y}l${dw/2} 30l${-dw/2} 30l${-dw/2} -30Z"/>`+T(x,y+30,t)}
+function iff(n){const t=n.t+'?',dw=Math.max(140,t.length*7+60),dh=60,A=seq(n.a),B=seq(n.b),
+ W=Math.max(dw+20,A.w+B.w+30),h=dh+G+Math.max(A.h,B.h)+G;
+ return{w:W,h,d:(x,y)=>{const x0=x-W/2,y1=y+dh+G,ym=y+h,vy=y+30;let s=dia(x,y,dw,t);
+  [[A,x0+A.w/2,x-dw/2,'Sim',n.a.length],[B,x0+W-B.w/2,x+dw/2,'Não',n.b.length]].forEach(([S,c,vx,lb,len])=>{
+   s+=`<text class="lb" x="${vx<x?vx-26:vx+4}" y="${vy-6}">${lb}</text>`;
+   s+=len?L(`M${vx} ${vy}H${c}V${y1}`,1)+S.d(c,y1)+L(`M${c} ${y1+S.h}V${ym}H${x}`):L(`M${vx} ${vy}H${c}V${ym}H${x}`)});
+  return s}}}
+function wh(n){const t=n.t+'?',dw=Math.max(140,t.length*7+60),dh=60,B=seq(n.a),W=Math.max(dw,B.w)+90,
+ y1=G+dh,h=dh+G+B.h+G*2;
+ return{w:W,h,d:(x,y)=>{const yb=y+dh+G+B.h,yr=yb+G/2,ye=y+h,xl=x-W/2+10,xr=x+W/2-10,vy=y+30;
+  return dia(x,y,dw,t)+`<text class="lb" x="${x+6}" y="${y+dh+16}">Sim</text><text class="lb" x="${x+dw/2+4}" y="${vy-6}">Não</text>`
+  +L(`M${x} ${y+dh}V${y+dh+G}`,1)+B.d(x,y+dh+G)
+  +L(`M${x} ${yb}V${yr}H${xl}V${vy}H${x-dw/2}`,1)+L(`M${x+dw/2} ${vy}H${xr}V${ye}H${x}`)}}}
+function chart(code){const S=seq([{k:'s',t:'Início'},...parse(code),{k:'e',t:'Fim'}]),W=Math.ceil(S.w+40);
+ return`<svg viewBox="0 0 ${W} ${Math.ceil(S.h+20)}" width="${W}" style="max-width:100%;height:auto">${S.d(W/2,10)}</svg>`}
+
+/* ---- Interface ---- */
+let cur=-1,set=[];
+const $=id=>document.getElementById(id);
+$('lv').innerHTML=LV.map((l,i)=>`<button id="b${i}" onclick="pick(${i})"><b>${l.n}</b><span>${l.s}</span></button>`).join('');
+function pick(i){cur=i;set=[...LV[i].ex].sort(()=>Math.random()-.5).slice(0,10);
+ LV.forEach((_,k)=>$('b'+k).classList.toggle('on',k==i));show()}
+function show(){
+ $('out').innerHTML=`<div class="card"><h3>${LV[cur].n} – ${LV[cur].s}</h3><p class="hint">Resolve os 10 exercícios no caderno. Cada fluxograma deve ter Início e Fim, usar paralelogramos para ler/escrever, retângulos para cálculos e losangos para decisões e ciclos. Só depois confere a resolução.</p>
+ <ol>${set.map(e=>`<li>${esc(en(e))}${io(e[1])}</li>`).join('')}</ol>
+ <div class="no"><button class="btn" onclick="sol()">Ver resultado em fluxogramas</button><button class="btn g" onclick="pick(cur)">Novo conjunto de 10</button></div></div><div id="sol"></div>`}
+function sol(){
+ $('sol').innerHTML=set.map((e,i)=>`<div class="card"><h3>${i+1}. ${esc(en(e))}</h3><div class="fc">${chart(e[1])}</div></div>`).join('')+`<div class="no"><button class="btn g" onclick="window.print()">Imprimir</button></div>`;
+ $('sol').scrollIntoView({behavior:'smooth'})}
+</script>
+</body>
+</html>
